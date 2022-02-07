@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>What is Me?</title>
   
-  <subtitle>Ask Three Questions</subtitle>
+  
   <link href="https://what-is-me.github.io/atom.xml" rel="self"/>
   
   <link href="https://what-is-me.github.io/"/>
@@ -10,7 +10,7 @@
   <id>https://what-is-me.github.io/</id>
   
   <author>
-    <name>蔡钦成</name>
+    <name>WhatIsMe</name>
     
   </author>
   
