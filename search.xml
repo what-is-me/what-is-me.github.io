@@ -3,9 +3,7 @@
   <entry>
     <title>力扣第279场周赛题解</title>
     <url>/2022/02/08/%E5%8A%9B%E6%89%A3%E7%AC%AC279%E5%9C%BA%E5%91%A8%E8%B5%9B%E9%A2%98%E8%A7%A3/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1371757760&auto=1&height=66"></iframe>
-
-<h2 id="1-对奇偶下标分别排序"><a href="#1-对奇偶下标分别排序" class="headerlink" title="1.对奇偶下标分别排序"></a>1.<a href="https://leetcode-cn.com/problems/sort-even-and-odd-indices-independently/">对奇偶下标分别排序</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给你一个下标从0开始的整数数组 <code>nums</code> 。根据下述规则重排 <code>nums</code> 中的值：</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="1-对奇偶下标分别排序"><a href="#1-对奇偶下标分别排序" class="headerlink" title="1.对奇偶下标分别排序"></a>1.<a href="https://leetcode-cn.com/problems/sort-even-and-odd-indices-independently/">对奇偶下标分别排序</a></h2><h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给你一个下标从0开始的整数数组 <code>nums</code> 。根据下述规则重排 <code>nums</code> 中的值：</p>
 <ul>
 <li>按<strong>非递增</strong>顺序排列 <code>nums</code> 奇数下标 上的所有值。</li>
 <li>按<strong>非递减</strong>顺序排列 <code>nums</code> 偶数下标 上的所有值。</li>
