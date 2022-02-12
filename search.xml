@@ -65,7 +65,7 @@
       </tags>
   </entry>
   <entry>
-    <title>剑指offer困难题题解</title>
+    <title>剑指offer困难题题解(部分)</title>
     <url>/2022/02/11/%E5%89%91%E6%8C%87offer%E5%9B%B0%E9%9A%BE%E9%A2%98%E9%A2%98%E8%A7%A3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="剑指-Offer-II-017-含有所有字符的最短字符串"><a href="#剑指-Offer-II-017-含有所有字符的最短字符串" class="headerlink" title="剑指 Offer II 017. 含有所有字符的最短字符串"></a><a href="https://leetcode-cn.com/problems/M1oyTv/">剑指 Offer II 017. 含有所有字符的最短字符串</a></h2><p>显然，这题应该使用滑动窗口，较为容易。</p>
 <p>固定 <code>l</code> ，找出最近的 <code>r</code> ，使得 <code>s[l...r]</code> 是符合条件的子串。</p>
@@ -137,6 +137,8 @@
 <p> <code>u.ans=max(u.val+left.maxlen+right.maxlen,left.ans,right.ans)</code></p>
 <p>推广至多叉树也是一样的道理.</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Info</span> {<br>    <span class="hljs-type">int</span> maxlen, ans;<br>};<br><span class="hljs-function">Info <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode* root)</span> </span>{<br>    <span class="hljs-keyword">if</span> (!root) <span class="hljs-keyword">return</span> {<span class="hljs-number">0</span>, <span class="hljs-number">-114514</span>};<br>    Info l = <span class="hljs-built_in">dfs</span>(root-&gt;left), r = <span class="hljs-built_in">dfs</span>(root-&gt;right);<br>    <span class="hljs-keyword">return</span> {<span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, root-&gt;val + <span class="hljs-built_in">max</span>(l.maxlen, r.maxlen)), <span class="hljs-built_in">max</span>(root-&gt;val + l.maxlen + r.maxlen, <span class="hljs-built_in">max</span>(l.ans, r.ans))};<br>}<br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Solution</span> {<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxPathSum</span><span class="hljs-params">(TreeNode* root)</span> </span>{<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">dfs</span>(root).ans;<br>    }<br>};<br></code></pre></td></tr></table></figure>
+
+<p>咕咕咕~</p>
 ]]></content>
       <categories>
         <category>力扣</category>
