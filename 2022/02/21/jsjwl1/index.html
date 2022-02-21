@@ -9,7 +9,7 @@
  font-family: 'JetBrains Mono';
  src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
 }</style><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="What is Me?" type="application/atom+xml">
-</head><body style="background-image:url(https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg);"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script><div class="aplayer" data-id="7006453772" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-order="random" data-loop="all" data-volume="1.0" data-theme="#141514" data-preload="auto" data-mini="true" data-lrcType="-1"></div><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/about/">About</a></nav><div class="search-header"><input autocomplete="on" autocorrect="on" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></div></header><div class="search-pop-overlay" style="max-height: 0;"><div class="popup"><div id="search-result"></div></div></div><main class="right"><article><div id="post-bg"><div id="post-title"><h1>计算机网络笔记 第一章</h1><div id="post-info"><span>First Post:<div style="display:inline-block;width:90px"><time datetime="2022-02-21T15:49:59.000Z" id="date"> 2022-02-21</time></div></span><br><span>Last Update:<div style="display:inline-block;width:90px"><time datetime="2022-02-21T16:50:20.507Z" id="updated"> 2022-02-22</time></div></span></div></div><hr><div id="post-content"><h2 id="计算机网络在信息时代中的作用"><a href="#计算机网络在信息时代中的作用" class="headerlink" title="计算机网络在信息时代中的作用"></a>计算机网络在信息时代中的作用</h2><h3 id="计算机网络的定义"><a href="#计算机网络的定义" class="headerlink" title="计算机网络的定义"></a>计算机网络的定义</h3><ul>
+</head><body style="background-image:url(https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg);"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script><div class="aplayer" data-id="7006453772" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-order="random" data-loop="all" data-volume="1.0" data-theme="#141514" data-preload="auto" data-mini="true" data-lrcType="-1"></div><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/about/">About</a></nav><div class="search-header"><input autocomplete="on" autocorrect="on" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></div></header><div class="search-pop-overlay" style="max-height: 0;"><div class="popup"><div id="search-result"></div></div></div><main class="right"><article><div id="post-bg"><div id="post-title"><h1>计算机网络笔记 第一章</h1><div id="post-info"><span>First Post:<div style="display:inline-block;width:90px"><time datetime="2022-02-21T15:49:59.000Z" id="date"> 2022-02-21</time></div></span><br><span>Last Update:<div style="display:inline-block;width:90px"><time datetime="2022-02-21T16:51:58.342Z" id="updated"> 2022-02-22</time></div></span></div></div><hr><div id="post-content"><h2 id="计算机网络在信息时代中的作用"><a href="#计算机网络在信息时代中的作用" class="headerlink" title="计算机网络在信息时代中的作用"></a>计算机网络在信息时代中的作用</h2><h3 id="计算机网络的定义"><a href="#计算机网络的定义" class="headerlink" title="计算机网络的定义"></a>计算机网络的定义</h3><ul>
 <li>Internet：全球最大、最重要的计算机网络</li>
 <li>互联网≠互连网(Internet≠internet)</li>
 </ul>
@@ -117,15 +117,37 @@
 <div align=center>
 <img src="https://img-blog.csdnimg.cn/20200912153410503.png" width=70%>
 </div>
-比较:
-* 若要连续传送大量的数据，且其传送时间远大于连接建立时间，则电路交换的传输速率较快。
-* 报文交换和分组交换不需要预先分配传输带宽，在传送突发数据时可提高整个网络的信道利用率。
-* 由于一个分组的长度往往远小于整个报文的长度，因此分组交换比报文交换的时延小，同时也具有更好的灵活性
-|   技术   |                                优点                                |                           缺点                           |
-|:--------:|:------------------------------------------------------------------:|:--------------------------------------------------------:|
-| 电路交换 |            当传输时间远于连接时间时，电路交换的速率较快            |                 突发性；通信线路利用率低                 |
-| 报文交换 | 不需要预先分配传输宽带，在传输突发数据时可提高整个网络的信道利用率 |                   时延较长，灵活性不够                   |
-| 分组交换 |                      高效；灵活；迅速；可靠；                      | 有时延，有内存开销（因为每个数据都带有一个首部，占内存） |
+
+<p>比较:</p>
+<ul>
+<li>若要连续传送大量的数据，且其传送时间远大于连接建立时间，则电路交换的传输速率较快。</li>
+<li>报文交换和分组交换不需要预先分配传输带宽，在传送突发数据时可提高整个网络的信道利用率。</li>
+<li>由于一个分组的长度往往远小于整个报文的长度，因此分组交换比报文交换的时延小，同时也具有更好的灵活性<table>
+<thead>
+<tr>
+<th align="center">技术</th>
+<th align="center">优点</th>
+<th align="center">缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">电路交换</td>
+<td align="center">当传输时间远于连接时间时，电路交换的速率较快</td>
+<td align="center">突发性；通信线路利用率低</td>
+</tr>
+<tr>
+<td align="center">报文交换</td>
+<td align="center">不需要预先分配传输宽带，在传输突发数据时可提高整个网络的信道利用率</td>
+<td align="center">时延较长，灵活性不够</td>
+</tr>
+<tr>
+<td align="center">分组交换</td>
+<td align="center">高效；灵活；迅速；可靠；</td>
+<td align="center">有时延，有内存开销（因为每个数据都带有一个首部，占内存）</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
 <div id="paginator"></div></div><div id="post-footer"><div id="pages"><div id="footer-link" style="left: 50%;order: 0;border-left: 1px solid #fe2;padding-right: unset;max-width: calc(50% - 5px);"><a href="/2022/02/20/lkzs281/">力扣第281场周赛题解 Prev →</a></div></div></div><div id="comments"></div><script>var gitalk = new Gitalk({
  clientID: '0a1567775fb9324a7fc6',
  clientSecret: 'c0da166e4d0b4b5bf415a9957585c20304f61a1e',
