@@ -6,7 +6,7 @@
   <link href="https://what-is-me.github.io/atom.xml" rel="self"/>
   
   <link href="https://what-is-me.github.io/"/>
-  <updated>2022-02-21T16:51:58.342Z</updated>
+  <updated>2022-02-21T17:09:48.874Z</updated>
   <id>https://what-is-me.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>程序的运行时间</title>
+    <link href="https://what-is-me.github.io/2022/02/22/jsjq1/"/>
+    <id>https://what-is-me.github.io/2022/02/22/jsjq1/</id>
+    <published>2022-02-21T16:57:04.000Z</published>
+    <updated>2022-02-21T17:09:48.874Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$name</span> = <span class="hljs-string">&quot;x&quot;</span><span class="hljs-comment">#程序名</span><br><span class="hljs-variable">$in</span> = <span class="hljs-string">&quot;input.txt&quot;</span><span class="hljs-comment">#输入文件</span><br><span class="hljs-variable">$out</span> = <span class="hljs-string">&quot;output.txt&quot;</span><span class="hljs-comment">#输出文件</span><br><br>g++ <span class="hljs-variable">$name</span><span class="hljs-string">&quot;.cpp&quot;</span> <span class="hljs-literal">-o</span> <span class="hljs-variable">$name</span> <span class="hljs-literal">-O2</span> <span class="hljs-literal">-std</span>=c++<span class="hljs-number">20</span><br><span class="hljs-variable">$runcmd</span> = <span class="hljs-string">&quot;./&quot;</span> + <span class="hljs-variable">$name</span> + <span class="hljs-string">&quot;.exe&quot;</span><br><span class="hljs-variable">$loglist</span> = <span class="hljs-built_in">Measure-Command</span> &#123; <span class="hljs-built_in">Get-Content</span> <span class="hljs-variable">$in</span> | &amp;<span class="hljs-variable">$runcmd</span> &gt;<span class="hljs-variable">$out</span> &#125; | <span class="hljs-built_in">Out-String</span><br><span class="hljs-string">&quot;Time:&quot;</span> + <span class="hljs-variable">$loglist</span>.Split(<span class="hljs-string">&quot;`n&quot;</span>)[<span class="hljs-number">12</span>].Split(<span class="hljs-string">&quot;:&quot;</span>)[<span class="hljs-number">1</span>].Trim(<span class="hljs-string">&quot; .-`t`n`r&quot;</span>) + <span class="hljs-string">&quot;ms&quot;</span><br></code></pre></td></tr></table></figure><h2 id="详解"><a href="#详解" class="headerlink" title="详解"></a>详解</h2><ul><li><code>powershell</code> 的变量一般以<code>$</code>为开头</li><li>第一步, 编译文件, 也就是<code>g++ $name&quot;.cpp&quot; -o $name -O2 -std=c++20</code></li><li>之后:<ul><li>运行文件:<code>&amp;$runcmd</code></li><li>重定向:<ul><li>input:<code>Get-Content $in |</code>,这里运用了powershell管道,<code>Get-Content</code>能够将文件内容输出,通过管道将之作为程序输入.</li><li>output:<code>&gt;$out</code>,<code>&gt;</code>能够将程序标准输出输出到文件中</li></ul></li><li>测量时间:<code>Measure-Command</code>能够输出表达式运行时间</li></ul></li><li><code>Measure-Command</code>的输出着实不好看, 可以对之修饰后输出</li></ul><p>在时间有限的情况下, 可以这么写:</p><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">g++ x.cpp <span class="hljs-literal">-o</span> x <span class="hljs-literal">-O2</span> <span class="hljs-literal">-std</span>=c++<span class="hljs-number">20</span><br><span class="hljs-built_in">Measure-Command</span> &#123; <span class="hljs-built_in">Get-Content</span> input | ./x &gt;output &#125;<br></code></pre></td></tr></table></figure><p>只不过每次都要修改所有的 <code>x</code> , 一共有3处</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    <category term="竞赛技巧" scheme="https://what-is-me.github.io/categories/%E7%AB%9E%E8%B5%9B%E6%8A%80%E5%B7%A7/"/>
+    
+    
+    <category term="powershell" scheme="https://what-is-me.github.io/tags/powershell/"/>
+    
+  </entry>
   
   <entry>
     <title>计算机网络笔记 第一章</title>
