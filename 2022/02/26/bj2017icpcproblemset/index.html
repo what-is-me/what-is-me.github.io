@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>2017ICPC北京题面 | What is Me?</title><script>var config = {"hostname":"https://what-is-me.github.io","root":"/","preload":true,"path":"search.xml"}</script><link rel="stylesheet" href="/css/gitalk.css"><script src="/js/gitalk.js"></script><script src="https://unpkg.com/mermaid@8.13.5/dist/mermaid.min.js"></script><script>mermaid.initialize({
+  startOnLoad: false
+  , theme: 'dark'
+});</script><script class="pjax-js">code.findCode();mermaid.init(undefined, ('.mermaid'));</script><script>window.onload = ()=>{var pjax = new Pjax({selectors:['title','article','#aside-block','.pjax-js']});mermaid.init(undefined, ('.mermaid'));};</script><link rel="stylesheet" href="/css/arknights.css"><link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.4.0/styles/atom-one-dark-reasonable.min.css"><style>@font-face {
+ font-family: BenderLight;
+ src: local('Bender'), url("/font/BenderLight.ttf");
+}
+@font-face {
+ font-family: 'JetBrains Mono';
+ src: local('JetBrains Mono'), url('/font/JetBrainsMono-Regular.woff2') format('woff2');
+}</style><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="What is Me?" type="application/atom+xml">
+</head><body style="background-image:url(https://ak.hypergryph.com/assets/index/images/ak/pc/bk.jpg);"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"></script><div class="aplayer" data-id="7006453772" data-server="netease" data-type="playlist" data-fixed="true" data-autoplay="true" data-order="random" data-loop="all" data-volume="1.0" data-theme="#141514" data-preload="auto" data-mini="true" data-lrcType="-1"></div><header><nav><a href="/">Home</a><a href="/archives/">Archives</a><a href="/about/">About</a></nav><div class="search-header"><input autocomplete="on" autocorrect="on" autocapitalize="none" placeholder="数据检索" spellcheck="false" maxlength="50" type="text" id="search-input"></div></header><div class="search-pop-overlay" style="max-height: 0;"><div class="popup"><div id="search-result"></div></div></div><main class="right"><article><div id="post-bg"><div id="post-title"><h1>2017ICPC北京题面</h1><div id="post-info"><span>First Post:<div style="display:inline-block;width:90px"><time datetime="2022-02-26T10:30:40.000Z" id="date"> 2022-02-26</time></div></span><br><span>Last Update:<div style="display:inline-block;width:90px"><time datetime="2022-02-26T10:32:50.405Z" id="updated"> 2022-02-26</time></div></span></div></div><hr><div id="post-content"><h2 id="Domains"><a href="#Domains" class="headerlink" title="Domains"></a>Domains</h2><p>Vivy finds that some domains can be visited faster using different VPNs (Virtual Private Network). So she decides to set up a system to automatically transfer requests to different VPNs.</p>
+<p>First of all, she has to set up configurations.</p>
+<p>There are multiple rules in the configurations. The format of a rule is: [domain pattern] [VPN name]. If a domain matches the [domain pattern] of a rule, we say that the domain matches the rule, and all visits to this domain should be transferred to [VPN name].</p>
+<p>To make the configurations short, Vivy decided to use two kinds of wildcards which are “*“ and “#”.  Both “*“ and “#” matches any strings consisting of lowercase alphabets, digits, dots and hyphens (‘-‘). But a domain matches the rules with “#” wildcard only if it doesn’t match any other rules.</p>
+<p>A domain pattern is legal, if and only if it satisfies all the following conditions:</p>
+<ol>
+<li><p>The domain pattern consists of wildcards, lowercase alphabets, digits, dots and hyphens.</p>
+</li>
+<li><p>The domain pattern does not start with a dot, and does not end with a dot.</p>
+</li>
+<li><p>Any two dots in the domain pattern are not adjacent.</p>
+</li>
+<li><p>If there is a wildcard, the wildcard must be at the beginning of the domain pattern. And the wildcard must precede a “.”, or no character follows it.</p>
+</li>
+<li><p>A hyphen in the domain pattern must be between two lowercase alphabets.</p>
+</li>
+</ol>
+<p>A VPN name is legal, if and only if it satisfies all the following conditions:</p>
+<ol>
+<li><p>The VPN name consists of lowercase alphabets, digits and hyphens.</p>
+</li>
+<li><p>The VPN name starts with lowercase alphabets.</p>
+</li>
+<li><p>A hyphen in the VPN name must be between two lowercase alphabets.</p>
+</li>
+</ol>
+<p>Two rules are considered conflict, if it satisfies any one of the following conditions:</p>
+<ol>
+<li><p>There exist a domain without wildcards which can match both of them at the same time. For example, if the domain pattern of rule A is “*.cn” and the domain pattern of rule B is “a.cn”, then rule A and rule B are conflict because domain “a.cn” can match both of them.</p>
+</li>
+<li><p>One of them can never be matched because of the other one. For example, “#.pku.cn” can never be matched if the other one is “*.cn”.</p>
+</li>
+</ol>
+<p>A rule is considered invalid, if it satisfies any one of the following conditions:</p>
+<ol>
+<li><p>The has an illegal domain pattern.</p>
+</li>
+<li><p>The rule has an illegal VPN name.</p>
+</li>
+<li><p>The rule is conflict with a valid rule that appears before it.</p>
+</li>
+</ol>
+<p>Now she wants to write a program to parse the configurations and determine how many rules are invalid.</p>
+<p>And she wants to know more things. A valid domain pattern without wildcard “#” can represent a set of domains. She wants to know, given a set of domains, how many valid rules matches the set, ie. how many rules satisfy that there exists a domain without wildcards in the set which matches the rule.</p>
+<h3 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h3><p>The input consists of multiple test cases, up to 10.</p>
+<p>For each test case:</p>
+<p>The first line contains an integer N, indicating the number of rules. (1 &lt;&#x3D; N &lt;&#x3D; 50000)</p>
+<p>Then N lines followed, each line contains two strings separated by a space, indicating domain pattern and VPN name of a rule.</p>
+<p>The total length of the strings in rules will not exceed 1100000.</p>
+<p>The next line contains an integer M, indicating the number of queries. (1 &lt;&#x3D; M &lt;&#x3D; 50000)</p>
+<p>Then M lines followed. Each line contains a domain pattern representing a set of domains. For each query, you should answer how many valid rules matches the given set. It is guaranteed that the given domain pattern is legal, and does not contain wildcard “#”.</p>
+<p>The total length of the strings in queries will not exceed 1100000.</p>
+<h3 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h3><p>For each test case:</p>
+<p>The first line contains an integer, indicating the number of invalid rules.</p>
+<p>Then M lines followed, each line is an integer, indicating the number of matched valid rules for the corresponding query.</p>
+<h3 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>11</p>
+<p>a.c a.c</p>
+<p>poj.org vpn-china</p>
+<p><a target="_blank" rel="noopener" href="http://www.pku.edu.cn/">www.pku.edu.cn</a> vpn-pku1</p>
+<p>mail.pku.edu.cn vpn-pku1</p>
+<p>*.test.pku.edu.cn vpn-pku2</p>
+<p>*.test.pku.edu.cn vpn-pku2</p>
+<p>*.a.test.pku.edu.cn vpn-pku2</p>
+<p>*.test2.pku.edu.cn vpn-pku2</p>
+<p>*.pku.edu.cn vpn-pku2</p>
+<p>#.pku.edu.cn vpn-pku0</p>
+<p>#.<a target="_blank" rel="noopener" href="http://www.pku.edu.cn/">www.pku.edu.cn</a> vpn-pku0</p>
+<p>5</p>
+<p>a.c</p>
+<p>mail.pku.edu.cn</p>
+<p>*.test.pku.edu.cn</p>
+<p>*.pku.edu.cn</pre> </p>
+<h3 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>5</p>
+<p>0</p>
+<p>1</p>
+<p>1</p>
+<p>5</p>
+<p>6</pre> </p>
+<h2 id="K-Dimensional-Foil"><a href="#K-Dimensional-Foil" class="headerlink" title="K-Dimensional Foil"></a>K-Dimensional Foil</h2><p>“It’s too quiet, “ David Jr murmured to himself. His space fleet entered the battlefield several minutes ago, but there was no any trace of the enemy. Everyone on the spaceship was waiting for enemy’s attack with great pressure.</p>
+<p>Suddenly, the alarm sounded. “Wait, it’s not the enemy.” David realized, “it is the instrument fault.” The reason for instrument fault was found out quickly: The distance between each spaceship calculated by 3-dimensional coordinates of spaceships didn’t correspond with the distance calculated by communication delay. “Every ship gives the same warning, indicating that is not just a simple instrument fault. Well, it can only be explained by ’that thing.’” David believed that enemy had invented “K-Dimensional Foil”, the Ultimate Weapon，and they were just being attacked by that weapon.</p>
+<p>“K-Dimensional Foil” was a dimensional weapon. It could ascend a region in 3-dimensional space to K-dimensional (K &gt;&#x3D; 3) space, which might cause great damage to objects in that region. When a spaceship was in K-dimensional space, its coordinate was a K-dimensional coordinate. But its computer only knew the original 3-dimensional coordinate, it could not get the coordinates in other higher dimensions. So, the distance between spaceships calculated by coordinates were not correct. But the actual distances could always be calculated by communication delay. </p>
+<p>David was a cautious man. He had prepared some way to defend the “K-dimensional Foil”. However, he had to know the number of dimensions of the space in which his fleet was. This glorious mission was given to you, the chief technology officer in this fleet.</p>
+<p>Now, it was your time to make history ……</p>
+<h3 id="Input-1"><a href="#Input-1" class="headerlink" title="Input"></a>Input</h3><p>The first line of the input is an integer T (T &lt;&#x3D; 100), the number of test cases.</p>
+<p>For each test case, the first line contains one integer n (1 &lt;&#x3D; n &lt;&#x3D; 50), the number of spaceships in David’s fleet.</p>
+<p>Then n lines follow. Each line contains three integers x, y, z (-300 &lt;&#x3D; x, y, z &lt;&#x3D; 300), the 3-dimentional coordinate of a spaceship.</p>
+<p>Then n-1 lines follow. The i<sup>th</sup> line contains n - i positive integers. The j<sup>th</sup>  integer of the  i<sup>th</sup> line is D<sub>i, i+j</sub>  (0≤D<sub>i, i+j</sub>≤5000000), which denotes the square(to avoid precision problem) of actual distance between the i<sup>th</sup> spaceship and the (i+j)<sup>th</sup> spaceship which is calculated by communication delay.</p>
+<p>Notice: The distance in this problem is Euclidean distance. For example, the distance between point (x<sub>1</sub>, y<sub>1</sub>, z<sub>1</sub>, k<sub>1</sub>) and point (x<sub>2</sub>, y<sub>2</sub>, z<sub>2</sub>, k<sub>2</sub>) in 4-dimentional space is sqrt((x<sub>1</sub>-x<sub>2</sub>)<sup>2</sup>+(y<sub>1</sub>-y<sub>2</sub>)<sup>2</sup>+(z<sub>1</sub>-z<sub>2</sub>)<sup>2</sup>+(k<sub>1</sub>-k<sub>2</sub>)<sup>2</sup> )  .</p>
+<h3 id="Output-1"><a href="#Output-1" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, output an integer K, the minimal possible number of dimensions of the new space. If the input can’t fit in any dimensional space, you should print “Goodbye World!”, without quotations. </span></p>
+<h3 id="Sample-Input-1"><a href="#Sample-Input-1" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>3</p>
+<p>3</p>
+<p>0 0 1</p>
+<p>0 0 2</p>
+<p>0 0 3</p>
+<p>10 20</p>
+<p>26</p>
+<p>3</p>
+<p>1 0 0</p>
+<p>2 0 0</p>
+<p>3 0 0</p>
+<p>3 7</p>
+<p>20</p>
+<p>3</p>
+<p>0 0 0</p>
+<p>1 1 1</p>
+<p>2 2 2</p>
+<p>3 12</p>
+<p>3</pre> </p>
+<h3 id="Sample-Output-1"><a href="#Sample-Output-1" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>5</p>
+<p>Goodbye World!</p>
+<p>3</p>
+<p></pre> </p>
+<h3 id="Hint"><a href="#Hint" class="headerlink" title="Hint"></a>Hint</h3><p>Case #1: In one possible situation, it’s a 5-dimentional space and the coordinates of these three ships are (0, 0, 1, 0, 0), (0, 0, 2, 0, 3), (0, 0, 3, 4, 0)</p>
+<p>Case #2: The distances between ship 1 and ship 2, ship 1 and ship 3 are both very small, but the distance between ship 2 and ship 3 is too large. That means the world is broken, so we should print “Goodbye World!”</p>
+<p>Case #3: It seems that nothing happened.</p>
+<h2 id="Graph"><a href="#Graph" class="headerlink" title="Graph"></a>Graph</h2><p>The country contains N cities numbered from 1 to N and M undirected roads connecting pairs of cities. There are some queries. Each query is represented by two numbers: L and R , meaning that all the cities whose number is between L and R(L and R are included) are safe, and other cities are not safe. We define city A can reach city B if and only if they are both safe and there exists a path from A to B that the cities on the path are all safe.</p>
+<p>For each query, you need to figure out the number of pairs of cities that can reach each other under the condition given by the query.</p>
+<h3 id="Input-2"><a href="#Input-2" class="headerlink" title="Input"></a>Input</h3><p>First line contains one number T which means the number of test cases.</p>
+<p>For each test case, first line contains three numbers, above mentioned N , M and Q.</p>
+<p>Next M lines, each line contains two integers: X, Y (X !&#x3D; Y) which means there is a road between city X and city Y (1 &lt;&#x3D; X, Y &lt;&#x3D; N).</p>
+<p>Next Q lines, each line contains two numbers: L, R which indicates an query(1 &lt;&#x3D; L, R &lt;&#x3D; N, L &lt;&#x3D; R).</p>
+<p>T &lt;&#x3D; 5, N , M &lt;&#x3D; 50000, Q &lt;&#x3D; 100000</p>
+<h3 id="Output-2"><a href="#Output-2" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, output Q lines, each line contains the answer of the correspondent query.</span></p>
+<h3 id="Sample-Input-2"><a href="#Sample-Input-2" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>1</p>
+<p>6 6 4</p>
+<p>1 2</p>
+<p>2 3</p>
+<p>2 6</p>
+<p>1 5</p>
+<p>2 4</p>
+<p>4 5</p>
+<p>1 4</p>
+<p>3 6</p>
+<p>2 6</p>
+<p>3 4</pre> </p>
+<h3 id="Sample-Output-2"><a href="#Sample-Output-2" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>6</p>
+<p>1</p>
+<p>10</p>
+<p>0</pre> </p>
+<h2 id="Chinese-Checkers"><a href="#Chinese-Checkers" class="headerlink" title="Chinese Checkers"></a>Chinese Checkers</h2><p>Chinese checkers is a strategy board game, which can be played by two, three, four, or six people, playing individually or with partners.</p>
+<p><img src="https://vj.csgrandeur.cn//0dc1768bfc25ea24528ccced4bd24499?v=1645720912" title="d.png" width="464" height="390" border="0" hspace="0" vspace="0" style="width:464px; height:390px; float:none; "><br></p>
+<p>Six players are playing a new version of Chinese checkers, whose rules are different from the traditional ones.</p>
+<ol>
+<li><p>The figure shows the shape of the board and the corner belonging to each player. A circle in the figure represents a space. Obviously, the board has 17 rows, and different rows may have different number of spaces. The corner belonging to each player consists of 10 spaces.</p>
+</li>
+<li><p>Each player has 10 pieces. At the beginning of the game, each player puts all his&#x2F;her pieces on his&#x2F;her corner and each piece occupies a space.</p>
+</li>
+<li><p>Players take turns moving a single piece, either by moving one step to an adjacent empty space, or by jumping over a symmetrical pattern (which includes at least one piece) to an empty space in one of six directions (left, right, upper left, upper right, lower left, lower right).</p>
+</li>
+</ol>
+<p>For example, when E is an empty space, a piece can jump from A to E if and only if:</p>
+<ol>
+<li><p>there is a piece at C while B and D are empty spaces, </p>
+</li>
+<li><p>or there are two pieces at B and D while C is an empty space, </p>
+</li>
+<li><p>or there are three pieces at B, C and D.</p>
+</li>
+</ol>
+<p>When D is an empty space, a piece can jump from A to D if and only if there are two pieces at B and C. </p>
+<ol start="4">
+<li><p>Player 1 take action first, and then Player 2, and so on.</p>
+</li>
+<li><p>A player can never move his pieces into others’ corner except the corner opposite to his corner. For example, Player 6 can move his pieces into his own corner or Player 5’s corner.</p>
+</li>
+</ol>
+<p>When the six players take their turns, they choose a piece and a direction, and then they always move the piece to the farthest possible space. Given the pieces and the directions that they choose during the first N turns, can you tell where their pieces located?</p>
+<h3 id="Input-3"><a href="#Input-3" class="headerlink" title="Input"></a>Input</h3><p>The input consists of multiple test cases. (Up to 1000)</p>
+<p>For each test case:</p>
+<p>The first line contains an integer N, indicating the number of turns. (1≤∑N≤10<sup>5</sup>)</p>
+<p>Then N lines follow, each line contains two integers x, y and a direction, separated by white spaces. These indicate that a player choose the piece located at the y<sup>th</sup> space of the x<sup>th</sup> row, and moves it in that direction.</p>
+<p>For simplicity, the directions are given in form of abbreviations. <strong>L</strong> represents left. <strong>R</strong> represents right. <strong>UL</strong> represents upper left. <strong>UR</strong> represents upper right. <strong>LL</strong> represents lower left. <strong>LR</strong> represents lower right.</p>
+<p>If the player does not have a piece located at the y<sup>th</sup> space of the x<sup>th</sup> row, or the piece can never move in the given direction, please skip his&#x2F;her turn (This player do nothing in his turn). It is guaranteed that the given position and direction are valid.</p>
+<h3 id="Output-3"><a href="#Output-3" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, output six lines. The i</span><sup>th</sup><span> line contains twenty integers x</span><sub>1</sub><span>, y</span><sub>1</sub><span>, x</span><sub>2</sub><span>, y</span><sub>2</sub><span>, …, x</span><sub>10</sub><span>, y</span><sub>10</sub><span> separated by white spaces, indicating the position of the Player i’s pieces. The j</span><sup>th</sup><span> piece located at the y</span><sub>j</sub><sup>th</sup><span> space of the x</span><sub>j</sub><sup>th</sup><span> row. The positions should be sorted by x first and then by y in ascending order.</span></p>
+<h3 id="Sample-Input-3"><a href="#Sample-Input-3" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>12</p>
+<p>1 1 LL</p>
+<p>16 1 UL</p>
+<p>10 1 R</p>
+<p>5 11 L</p>
+<p>11 10 L</p>
+<p>7 1 LR</p>
+<p>2 2 LR</p>
+<p>13 5 UL</p>
+<p>12 2 R</p>
+<p>5 12 L</p>
+<p>11 11 L</p>
+<p>6 1 LR</pre> </p>
+<h3 id="Sample-Output-3"><a href="#Sample-Output-3" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>2 1 3 1 3 2 3 3 4 1 4 2 4 3 4 4 5 5 6 9</p>
+<p>12 4 14 1 14 2 14 3 14 4 15 1 15 2 15 3 16 2 17 1</p>
+<p>10 2 11 1 11 2 12 1 12 3 12 5 13 1 13 2 13 3 13 4</p>
+<p>5 7 5 9 5 10 5 13 6 10 6 11 6 12 7 10 7 11 8 10</p>
+<p>10 10 11 7 11 9 12 10 12 11 12 12 13 10 13 11 13 12 13 13</p>
+<p>5 1 5 2 5 3 5 4 6 2 6 3 7 1 7 2 8 1 11 3</pre> </p>
+<h2 id="Cats-and-Fish"><a href="#Cats-and-Fish" class="headerlink" title="Cats and Fish"></a>Cats and Fish</h2><p>There are many homeless cats in PKU campus. They are all happy because the students in the cat club of PKU take good care of them. Li lei is one of the members of the cat club. He loves those cats very much. Last week, he won a scholarship and he wanted to share his pleasure with cats. So he bought some really tasty fish to feed them, and watched them eating with great pleasure. At the same time, he found an interesting question:</p>
+<p>There are m fish and n cats, and it takes c<sub>i</sub> minutes for the i<sup>th</sup> cat to eat out one fish. A cat starts to eat another fish (if it can get one) immediately after it has finished one fish. A cat never shares its fish with other cats. When there are not enough fish left, the cat which eats quicker has higher priority to get a fish than the cat which eats slower. All cats start eating at the same time. Li Lei wanted to know, after x minutes, how many fish would be left.</p>
+<h3 id="Input-4"><a href="#Input-4" class="headerlink" title="Input"></a>Input</h3><p>There are no more than 20 test cases.</p>
+<p>For each test case:</p>
+<p>The first line contains 3 integers: above mentioned m, n and x (0 &lt; m &lt;&#x3D; 5000, 1 &lt;&#x3D; n &lt;&#x3D; 100, 0 &lt;&#x3D; x &lt;&#x3D; 1000).</p>
+<p>The second line contains n integers c<sub>1</sub>, c<sub>2</sub> … c<sub>n</sub>, c<sub>i</sub> means that it takes the ith cat ci minutes to eat out a fish ( 1&lt;&#x3D; c<sub>i</sub> &lt;&#x3D; 2000).</p>
+<h3 id="Output-4"><a href="#Output-4" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, print 2 integers p and q, meaning that there are p complete fish(whole fish) and q incomplete fish left after x minutes.</span></p>
+<h3 id="Sample-Input-4"><a href="#Sample-Input-4" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>2 1 1</p>
+<p>1</p>
+<p>8 3 5</p>
+<p>1 3 4</p>
+<p>4 5 1</p>
+<p>5 4 3 2 1</pre> </p>
+<h3 id="Sample-Output-4"><a href="#Sample-Output-4" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>1 0</p>
+<p>0 1</p>
+<p>0 3</p>
+<p></pre> </p>
+<h2 id="Secret-Poems"><a href="#Secret-Poems" class="headerlink" title="Secret Poems"></a>Secret Poems</h2><p>The Yongzheng Emperor (13 December 1678 – 8 October 1735), was the fifth emperor of the Qing dynasty of China. He was a very hard-working ruler. He cracked down on corruption and his reign was known for being despotic, efficient, and vigorous.</p>
+<p>Yongzheng couldn’t tolerate people saying bad words about Qing or him. So he started a movement called “words prison”. “Words prison” means literary inquisition. In the famous Zhuang Tinglong Case, more than 70 people were executed in three years because of the publication of an unauthorized history of the Ming dynasty.</p>
+<p>In short, people under Yongzheng’s reign should be very careful if they wanted to write something. So some poets wrote poems in a very odd way that only people in their friends circle could read. This kind of poems were called secret poems.</p>
+<p>A secret poem is a N×N matrix of characters which looks like random and meaning nothing. But if you read the characters in a certain order, you will understand it. The order is shown in figure 1 below:</p>
+<p><img src="https://vj.csgrandeur.cn//5e9b845a84b20c8692e00a1bf0c25cd0?v=1645480132" title="f.png" width="450" height="190" border="0" hspace="0" vspace="0" style="width:450px; height:190px; float:none; "><br></p>
+<p>figure 1                                                           figure 2</p>
+<p>Following the order indicated by arrows, you can get “THISISAVERYGOODPOEMITHINK”, and that can mean something.</p>
+<p>But after some time, poets found out that some Yongzheng’s secret agent called “Mr. blood dripping” could read this kind of poems too. That was dangerous. So they introduced a new order of writing poems as shown in figure 2. And they wanted to convert the old poems written in old order as figure1 into the ones in new order. Please help them.</p>
+<h3 id="Input-5"><a href="#Input-5" class="headerlink" title="Input"></a>Input</h3><p>There are no more than 10 test cases.</p>
+<p>For each test case:</p>
+<p>The first line is an integer N( 1 &lt;&#x3D; N &lt;&#x3D; 100), indicating that a poem is a N×N matrix which consist of capital letters. </p>
+<p>Then N lines follow, each line is an N letters string. These N lines represent a poem in old order. </p>
+<h3 id="Output-5"><a href="#Output-5" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, convert the poem in old order into a poem in new order. </span></p>
+<h3 id="Sample-Input-5"><a href="#Sample-Input-5" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>5</p>
+<p>THSAD </p>
+<p>IIVOP </p>
+<p>SEOOH </p>
+<p>RGETI </p>
+<p>YMINK</p>
+<p>2</p>
+<p>AB</p>
+<p>CD</p>
+<p>4</p>
+<p>ABCD</p>
+<p>EFGH</p>
+<p>IJKL</p>
+<p>MNOP</pre> </p>
+<h3 id="Sample-Output-5"><a href="#Sample-Output-5" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>THISI</p>
+<p>POEMS</p>
+<p>DNKIA</p>
+<p>OIHTV</p>
+<p>OGYRE</p>
+<p>AB</p>
+<p>DC</p>
+<p>ABEI</p>
+<p>KHLF</p>
+<p>NPOC</p>
+<p>MJGD</pre> </p>
+<h2 id="Liaoning-Ship’s-Voyage"><a href="#Liaoning-Ship’s-Voyage" class="headerlink" title="Liaoning Ship’s Voyage"></a>Liaoning Ship’s Voyage</h2><p>Liaoning ship, which named after a province of China, is the first aircraft carrier commissioned into the People’s Liberation Army Navy. It was bought from Ukraine as a stripped hulk and was rebuilt by China as an important part of China’s blue water Navy plan. Liaoning ship has sailed far into the Pacific Ocean for serval times, which shows the power and resolve of China to defend her integrity of territory.</p>
+<p>Now Liaoning ship is on a new voyage to the Atlantic Ocean for a maneuver! The vast maneuver region on the ocean can be seen as an n×n grid which has n×n crosspoints. Each crosspoint stands for a check point of the maneuver region. Liaoning starts from the bottom-left check point whose coordinate is (0, 0), and its destination is the upper-right checkpoint whose coordinate is (n-1, n-1). The positive side of the x axis points to the right, and the positive side of the y axis points up. All check points’ coordinates are integral. During each move, Liaoning can go from one check point to its adjacent 8 check points <strong>along a straight line</strong>, and each move takes Liaoning one day. Some check points are not available to go due to the bad weather. And, as you know, on the Atlantic Ocean, there is a Bermuda Triangle in which many ships and planes were missing. Liaoning can’t take risk to go into that triangle. Of course, Liaoning can’t go outside the maneuver region. Please figure out a route for Liaoning to reach its destination as soon as possible.</p>
+<h3 id="Input-6"><a href="#Input-6" class="headerlink" title="Input"></a>Input</h3><p>There are no more than 30 test cases.</p>
+<p>For each case:</p>
+<p>The first line is an integer n( 2 &lt;&#x3D; n &lt;&#x3D; 20), meaning that the maneuver region is an n×n grid.</p>
+<p>The seconds line contains six float numbers x<sub>1</sub>, y<sub>1</sub>, x<sub>2</sub>, y<sub>2</sub>, x<sub>3</sub>, y<sub>3</sub>( -100 &lt;&#x3D; x<sub>1</sub>, y<sub>1</sub>, x<sub>2</sub>, y<sub>2</sub>, x<sub>3</sub>, y<sub>3</sub> &lt;&#x3D; 100) which have at most 2 digits after the decimal point, indicating the coordinates of the vertices of Bermuda Triangle are (x<sub>1</sub>, y<sub>1</sub>), (x<sub>2</sub>, y<sub>2)</sub> and (x<sub><strong>3</strong></sub>, y<sub>3</sub>). Liaoning ship can’t go into that triangle, but going along its edges or touching its vertices are allowed.</p>
+<p>Then an n×n character matrix consists of ‘.’ and ‘#’ follows, indicating the weather condition of all check points. ‘.’ Means good weather and ‘#’ means bad weather. The bottom-left character stands for the weather of check point (0, 0), the character on the right side of it stands for (1, 0), and the upper-right character stands for (n-1, n-1). </p>
+<p>It is guaranteed that check point (0, 0) is not inside the Bermuda Triangle or on the edges of the triangle.</p>
+<h3 id="Output-6"><a href="#Output-6" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, print the minimum days Liaoning ship needs to reach its destination. If it is impossible for Liaoning to reach its destination, print -1 instead.</span></p>
+<h3 id="Sample-Input-6"><a href="#Sample-Input-6" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>3</p>
+<p>0.5 1.5 1.5 1.5 1 0.5</p>
+<p>.#.</p>
+<p>…</p>
+<p>..#</p>
+<p>3</p>
+<p>0.5 1.5 1.5 1.5 1 0.5</p>
+<p>.#.</p>
+<p>..#</p>
+<p>..#</p>
+<p></pre> </p>
+<h3 id="Sample-Output-6"><a href="#Sample-Output-6" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>3</p>
+<p>-1</p>
+<p></pre> </p>
+<h2 id="Puzzle-Game"><a href="#Puzzle-Game" class="headerlink" title="Puzzle Game"></a>Puzzle Game</h2><p>Once upon a time, there was a little dog YK. One day, he went to an antique shop and was impressed by a beautiful picture. YK loved it very much. However, YK did not have money to buy it. He begged the shopkeeper Bob whether he could have it without spending money.</p>
+<p>Fortunately, Bob enjoyed puzzle game. He promised to give YK a picture for free if YK can solve a puzzle game for him.</p>
+<p>Bob drew a puzzle board, which was a n×m matrix consisting of n×m cells. And there was an integer in each cell. A sub-matrix was a matrix that was a continuous part of the puzzle board (The whole puzzle board could also be called a sub-matrix). The value of a sub-matrix meant the sum of integers in the cells of the sub-matrix. The sub-matrix which had the largest value was called “the largest sub-matrix”. Bob wanted to make the value of the largest sub-matrix as small as possible by selecting one cell on the board and changed the integer in it into P. But if making that kind of change would not do anything good, he didn’t have to change any cell.</p>
+<p>In such a situation, YK needed to calculate the minimum value of the largest sub-matrix Bob could get.</p>
+<h3 id="Input-7"><a href="#Input-7" class="headerlink" title="Input"></a>Input</h3><p>There are no more than 120 test cases, but at most 3 test cases in which n &gt;&#x3D; 50 or m &gt;&#x3D;50.</p>
+<p>The first line of each case contains three integers, above mentioned n, m and P (1&lt;&#x3D;n, m&lt;&#x3D;150, -1000&lt;&#x3D;P&lt;&#x3D;1000).</p>
+<p>Then n lines follow. Each line contains m integers x<sub>1</sub>, x<sub>2</sub>…x<sub>m</sub>(-1000&lt;&#x3D;x<sub>i</sub> &lt;&#x3D;1000, i &#x3D; 1…m).</p>
+<p>These n lines are the n×m integers in the n×m cells of the puzzle board. </p>
+<h3 id="Output-7"><a href="#Output-7" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, you should output the minimum value of the largest sub-matrix Bob could get.</span></p>
+<h3 id="Sample-Input-7"><a href="#Sample-Input-7" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>3 3 -10</p>
+<p>-100 4 4</p>
+<p>4 -10 4</p>
+<p>4 4 1</p>
+<p>3 3 -1</p>
+<p>-2 -2 -2</p>
+<p>-2 -2 -2</p>
+<p>-2 -2 -2</pre> </p>
+<h3 id="Sample-Output-7"><a href="#Sample-Output-7" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>8</p>
+<p>-2</pre> </p>
+<h2 id="Colored-Nodes"><a href="#Colored-Nodes" class="headerlink" title="Colored Nodes"></a>Colored Nodes</h2><p>There are N colored nodes, numbered from 1 to N. Initially, the color of Node i is Color i. There are M edges between some pairs of nodes.</p>
+<p>At the beginning of the (i+kN)<sup>th</sup> minute, the colors of the nodes that adjacent to Node i will be set to the same color as Node i, where k is a non-negative integer.</p>
+<p>The following pictures are examples.</p>
+<p><img src="https://vj.csgrandeur.cn//482ce84477be3aa0af786e90d510d903?v=1645720937" title="i.png"><br></p>
+<p>At the beginning of the 1<sup>st</sup> minute, the color of Node 2 is set to 1.</p>
+<p>At the beginning of the 2<sup>nd</sup> minute, the color of Node 1 and 5 is set to 1. </p>
+<p>At the beginning of the 3<sup>rd</sup> minute, the color of Node 4 and 5 is set to 3. </p>
+<p>At the beginning of the 4<sup>th</sup> minute, the color of Node 3 and 5 is set to 3. </p>
+<p>At the beginning of the 5<sup>th</sup> minute, the color of Node 2, 3 and 4 is set to 3.</p>
+<p>At the beginning of the 6<sup>th</sup> minute, the color of Node 2 is set to 1.</p>
+<p>……</p>
+<p>Assume the number of nodes that are color i during the j<sup>th</sup> minute is D(i, j). And assume</p>
+<p><img src="https://vj.csgrandeur.cn//67d03de733e22e802db3d7354d2bcf39?v=1645720937" title="i2.png"><br></p>
+<p>Your task is to calculate F(i) for all i range from 1 to N.</p>
+<h3 id="Input-8"><a href="#Input-8" class="headerlink" title="Input"></a>Input</h3><p>The input consists of multiple test cases. (Up to 20)</p>
+<p>For each test case:</p>
+<p>The first line contains two integers N and M, indicating the number of nodes and the number of edges. (1≤N, M≤10<sup>5</sup>)</p>
+<p>M lines follow, each line contains two integers a and b, indicating that there is an edge between Node a and Node b. (1≤a, b≤N)</p>
+<h3 id="Output-8"><a href="#Output-8" class="headerlink" title="Output"></a>Output</h3><p><span>For each test case, output all F(i) that satisfy F(i)≠0, rounded to six decimal places and sorted in descending order.</span></p>
+<h3 id="Sample-Input-8"><a href="#Sample-Input-8" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>5 5</p>
+<p>1 2</p>
+<p>2 5</p>
+<p>3 4</p>
+<p>4 5</p>
+<p>3 5</p>
+<p>5 4</p>
+<p>1 2</p>
+<p>2 5</p>
+<p>5 4</p>
+<p>4 3</pre> </p>
+<h3 id="Sample-Output-8"><a href="#Sample-Output-8" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>3.000000</p>
+<p>2.000000</p>
+<p>2.800000</p>
+<p>2.200000</pre> </p>
+<h2 id="Pangu-and-Stones"><a href="#Pangu-and-Stones" class="headerlink" title="Pangu and Stones"></a>Pangu and Stones</h2><p>In Chinese mythology, Pangu is the first living being and the creator of the sky and the earth. He woke up from an egg and split the egg into two parts: the sky and the earth.</p>
+<p>At the beginning, there was no mountain on the earth, only stones all over the land.</p>
+<p>There were N piles of stones, numbered from 1 to N. Pangu wanted to merge all of them into one pile to build a great mountain. If the sum of stones of some piles was S, Pangu would need S seconds to pile them into one pile, and there would be S stones in the new pile. </p>
+<p>Unfortunately, every time Pangu could only merge successive piles into one pile. And the number of piles he merged shouldn’t be less than L or greater than R.</p>
+<p>Pangu wanted to finish this as soon as possible. </p>
+<p>Can you help him? If there was no solution, you should answer ‘0’.</p>
+<h3 id="Input-9"><a href="#Input-9" class="headerlink" title="Input"></a>Input</h3><p>There are multiple test cases.</p>
+<p>The first line of each case contains three integers N, L, R as above mentioned (2&lt;&#x3D;N&lt;&#x3D;100, 2&lt;&#x3D;L&lt;&#x3D;R&lt;&#x3D;N).</p>
+<p>The second line of each case contains N integers a<sub>1</sub>, a<sub>2</sub> …a<sub>N</sub> (1&lt;&#x3D; a<sub>i</sub>  &lt;&#x3D;1000, i&#x3D; 1…N ), indicating the number of stones of  pile 1, pile 2 …pile N.</p>
+<p>The number of test cases is less than 110 and there are at most 5 test cases in which N &gt;&#x3D; 50.</p>
+<h3 id="Output-9"><a href="#Output-9" class="headerlink" title="Output"></a>Output</h3><p>For each test case, you should output the minimum time(in seconds) Pangu had to take . If it was impossible for Pangu to do his job, you should output  0.</p>
+<h3 id="Sample-Input-9"><a href="#Sample-Input-9" class="headerlink" title="Sample Input"></a>Sample Input</h3><p>3 2 2</p>
+<p>1 2 3</p>
+<p>3 2 3</p>
+<p>1 2 3</p>
+<p>4 3 3</p>
+<p>1 2 3 4</pre> </p>
+<h3 id="Sample-Output-9"><a href="#Sample-Output-9" class="headerlink" title="Sample Output"></a>Sample Output</h3><p>9</p>
+<p>6</p>
+<p>0</pre> </p>
+<div id="paginator"></div></div><div id="post-footer"><div id="pages"><div id="footer-link" style="left: 50%;order: 0;border-left: 1px solid #fe2;padding-right: unset;max-width: calc(50% - 5px);"><a href="/2022/02/22/jsjq1/">程序的运行时间 Prev →</a></div></div></div><div id="comments"></div><script>var gitalk = new Gitalk({
+ clientID: '0a1567775fb9324a7fc6',
+ clientSecret: 'c0da166e4d0b4b5bf415a9957585c20304f61a1e',
+ repo: 'what-is-me.github.io',
+ owner: 'what-is-me',
+ admin: ['what-is-me'],
+ id: location.pathname,
+})
+gitalk.render("comments")</script></div><div id="bottom-btn"><a id="to-top" onClick="index.scrolltop();" title="to top">∧</a></div></article><aside><div id="aside-top"><div id="about"><a href="/" id="logo"><img src="https://ak.hypergryph.com/assets/index/images/ak/pc/faction/1.png" alt="Logo"></a><h1 id="Dr"><a target="_blank" rel="noopener" href="https://github.com/what-is-me">WhatIsMe</a></h1><link rel="stylesheet" href="/css/about_me.css"><div id="description"><p>优衣对不起QAQ</p></div><div class="about_me" id="about_me"><a target="_blank" rel="noopener" href="https://github.com/what-is-me"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/github.png" alt="social-github"></a><a target="_blank" rel="noopener" href="https://wpa.qq.com/msgrd?v=3&amp;uin=2454787428&amp;site=qq&amp;menu=yes"><img src="https://im.qq.com/favicon.ico" alt="social-qq"></a><a target="_blank" rel="noopener" href="https://gitee.com/whatisme"><img src="https://gitee.com/assets/favicon.ico" alt="social-gitee"></a><a target="_blank" rel="noopener" href="https://codeforces.com/profile/Komeiji-Koishi"><img src="https://codeforces.org/s/0/android-icon-192x192.png" alt="social-codeforces"></a><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/user/148205"><img src="https://cdn.luogu.com.cn/upload/usericon/3.png" alt="social-luogu"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/u/what-is-me/"><img src="https://pic1.zhimg.com/v2-af5c24591c07dc6a542b1e8358d5d985_b.jpg" alt="social-leetcode"></a></div></div><div id="aside-block"><h1>INDEX</h1><div id="toc-div"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Domains"><span class="toc-number">1.</span> <span class="toc-text">Domains</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input"><span class="toc-number">1.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output"><span class="toc-number">1.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input"><span class="toc-number">1.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output"><span class="toc-number">1.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-Dimensional-Foil"><span class="toc-number">2.</span> <span class="toc-text">K-Dimensional Foil</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-1"><span class="toc-number">2.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-1"><span class="toc-number">2.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-1"><span class="toc-number">2.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-1"><span class="toc-number">2.4.</span> <span class="toc-text">Sample Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hint"><span class="toc-number">2.5.</span> <span class="toc-text">Hint</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graph"><span class="toc-number">3.</span> <span class="toc-text">Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-2"><span class="toc-number">3.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-2"><span class="toc-number">3.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-2"><span class="toc-number">3.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-2"><span class="toc-number">3.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chinese-Checkers"><span class="toc-number">4.</span> <span class="toc-text">Chinese Checkers</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-3"><span class="toc-number">4.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-3"><span class="toc-number">4.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-3"><span class="toc-number">4.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-3"><span class="toc-number">4.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cats-and-Fish"><span class="toc-number">5.</span> <span class="toc-text">Cats and Fish</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-4"><span class="toc-number">5.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-4"><span class="toc-number">5.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-4"><span class="toc-number">5.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-4"><span class="toc-number">5.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Secret-Poems"><span class="toc-number">6.</span> <span class="toc-text">Secret Poems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-5"><span class="toc-number">6.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-5"><span class="toc-number">6.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-5"><span class="toc-number">6.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-5"><span class="toc-number">6.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Liaoning-Ship%E2%80%99s-Voyage"><span class="toc-number">7.</span> <span class="toc-text">Liaoning Ship’s Voyage</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-6"><span class="toc-number">7.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-6"><span class="toc-number">7.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-6"><span class="toc-number">7.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-6"><span class="toc-number">7.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Puzzle-Game"><span class="toc-number">8.</span> <span class="toc-text">Puzzle Game</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-7"><span class="toc-number">8.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-7"><span class="toc-number">8.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-7"><span class="toc-number">8.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-7"><span class="toc-number">8.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Colored-Nodes"><span class="toc-number">9.</span> <span class="toc-text">Colored Nodes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-8"><span class="toc-number">9.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-8"><span class="toc-number">9.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-8"><span class="toc-number">9.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-8"><span class="toc-number">9.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pangu-and-Stones"><span class="toc-number">10.</span> <span class="toc-text">Pangu and Stones</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Input-9"><span class="toc-number">10.1.</span> <span class="toc-text">Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Output-9"><span class="toc-number">10.2.</span> <span class="toc-text">Output</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Input-9"><span class="toc-number">10.3.</span> <span class="toc-text">Sample Input</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sample-Output-9"><span class="toc-number">10.4.</span> <span class="toc-text">Sample Output</span></a></li></ol></li></ol></div></div></div><footer><text>published with <a target="_blank" rel="noopener" href="http://hexo.io">Hexo</a></text><text> Theme <a target="_blank" rel="noopener" href="https://github.com/Yue-plus/hexo-theme-arknights">Arknight</a></text><wbr><text>by <a target="_blank" rel="noopener" href="https://github.com/Yue-plus">Yue_plus</a></text></footer></aside></main><div id="cursor-container"><div id="cursor-outer"></div><div id="cursor-effect"></div></div><canvas id="canvas-dust"></canvas><script src="/js/arknights.js"></script><script src="//unpkg.com/@highlightjs/cdn-assets@11.4.0/highlight.min.js"></script><script src="/js/search.js"></script><script src="//cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script></body></html>
