@@ -719,7 +719,7 @@ footer {
 }
 
 #Dr {
-  font-family: 'Pfeffer Mediæval';
+  font-family: 'Pfeffer Mediæval', Pfeffer !important;
   text-align: center;
 }
 #Dr a {
