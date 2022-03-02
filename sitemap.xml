@@ -85,7 +85,7 @@
 
   <url>
     <loc>https://what-is-me.github.io/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -93,28 +93,28 @@
   
   <url>
     <loc>https://what-is-me.github.io/tags/%E5%8A%9B%E6%89%A3/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://what-is-me.github.io/tags/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://what-is-me.github.io/tags/powershell/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://what-is-me.github.io/tags/English/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -123,28 +123,28 @@
   
   <url>
     <loc>https://what-is-me.github.io/categories/%E5%8A%9B%E6%89%A3/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://what-is-me.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://what-is-me.github.io/categories/%E7%AB%9E%E8%B5%9B%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://what-is-me.github.io/categories/%E8%8B%B1%E8%AF%AD/</loc>
-    <lastmod>2022-02-28</lastmod>
+    <lastmod>2022-03-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
