@@ -436,7 +436,7 @@
 <li>十六进制 HEX</li>
 </ul>
 <blockquote>
-<p>十进制转二进制: 整数部分除2取余, 小数部分乘2取整+</p>
+<p>十进制转二进制: 整数部分除2取余, 小数部分乘2取整</p>
 </blockquote>
 <h3 id="二进制算术运算"><a href="#二进制算术运算" class="headerlink" title="二进制算术运算"></a>二进制算术运算</h3><table>
 <thead>
