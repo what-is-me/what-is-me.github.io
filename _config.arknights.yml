@@ -20,10 +20,10 @@ background_image:
 
 # 导航栏
 menu:
-  Home: ""
-  About: about/
+  'Home | 主页': ""
+  # 'About | 关于': about/
   # Contact: contact/
-  Archives: archives/
+  'Archives | 归档': archives/
 
 # 侧边栏
 aside:
