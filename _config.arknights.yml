@@ -21,7 +21,7 @@ background_image:
 # 导航栏
 menu:
   Home: ""
-  # About: about/
+  About: about/
   # Contact: contact/
   Archives: archives/
 
@@ -41,8 +41,8 @@ aside:
 # 格式：链接 || 图标
 # 所有可用图标参考：https://fontawesome.com/icons
 social:
-  GitHub: https://github.com/what-is-me
-  E-Mail: whatisme@outlook.jp
+  GitHub: https://github.com/what-is-me || fab fa-github
+  E-Mail: whatisme@outlook.jp || fa fa-envelope
   BiliBili: https://space.bilibili.com/85709895 || fa-brands fa-bilibili
   # Weibo: https://weibo.com/yourname || fab fa-weibo
   # Zhihu: https://www.zhihu.com/people/yourname || fab fa-zhihu
