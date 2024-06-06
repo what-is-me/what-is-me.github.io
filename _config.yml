@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
+title: 'Leo Cai'
+subtitle: 'What Is Me'
+description: "Leo Cai's Blog"
 keywords:
-author: John Doe
-language: en
-timezone: ''
+author: Leo Cai
+language: 'zh-CN'
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://what-is-me.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -47,13 +47,13 @@ syntax_highlighter: highlight.js
 highlight:
   line_number: true
   auto_detect: false
-  tab_replace: ''
+  tab_replace: '  '
   wrap: true
-  hljs: false
+  hljs: true
 prismjs:
   preprocess: true
   line_number: true
-  tab_replace: ''
+  tab_replace: '  '
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -96,7 +96,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: arknights
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
