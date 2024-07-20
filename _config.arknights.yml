@@ -103,6 +103,19 @@ valine:
   app_key: # APP KEY
   server_url: # APP DOMAIN（LeanCloud 国际版）
 
+# gitalk
+# 详见 https://github.com/gitalk/gitalk
+gitalk:
+  enable: true
+  client_id: 0a1567775fb9324a7fc6 # GitHub 应用 Client ID
+  client_secret: 83480de27cdc25848e4db90f049d8446d0050b41 # GitHub 应用 Client Secret
+  repo: what-is-me.github.io # 用于存放评论数据的 GitHub 仓库
+  owner: what-is-me # 该 GitHub 仓库所有者
+  admin: ['what-is-me'] # 具有写该 GitHub 仓库权限的用户，例如: [adminA,adminB]
+  id: location.pathname # (可选) 页面的唯一标识
+  labels: ['Gitalk']
+  createIssueManually: true
+
 # Waline
 # 详情: https://waline.js.org/
 waline:
