@@ -19,34 +19,37 @@ category: "CMU15-721"
 
 ### 编码方案的选择
 
-- 抽样法：
-  - 从数据中抽样并尝试所有可用的编码方案，重复三遍
-  - 使用多个不重叠小数据块，而不是单个的值(10\*64而非640\*1)
-    - 对于64000个值，使用10个大小为64的块
-- 使用了如下编码方案：
-  - RLE / One Value
-    - Run-length encoding (RLE)：${A, A, A, A, A}\rarr (A, 5)$
-  - Frequency Encoding：依据频率进行的编码(比如哈夫曼树)
-  - FOR + Bitpacking
-    - Frame of Reference：${105, 103, 113}\rarr (100, {5, 3, 13})$
-    - Bitpacking：使用4bit储存{5, 3, 13}而不是8bit
-  - Dictionary Encoding：$"ABCABCZXZXZX"\rarr ({0:"ABC",1:"ZX"}, {0,0,1,1,1})$
-  - Fast Static Symbol Table (FSST)
-    - 用于压缩字符串
-    - 寻找“最佳”符号表，将出现频率最高的子串(不超过8B长)替换为1B的代码
-    - 快速压缩(SIMD并行加速)
-    - 压缩后的文件可以随机读
-    - 寻找符号表：一种自底向上生成符号表的启发式算法
-      - 每轮迭代：
+抽样法：
+
+- 从数据中抽样并尝试所有可用的编码方案，重复三遍
+- 使用多个不重叠小数据块，而不是单个的值(10\*64而非640\*1)
+  - 对于64000个值，使用10个大小为64的块
+
+### 编码方案
+
+- RLE / One Value
+  - Run-length encoding (RLE)：$\{A, A, A, A, A\}\rightarrow (A, 5)$
+- Frequency Encoding：依据频率进行的编码(比如哈夫曼树)
+- FOR + Bitpacking
+  - Frame of Reference：$\{105, 103, 113\}\rightarrow (100, \{5, 3, 13\})$
+  - Bitpacking：使用4bit储存$\{5, 3, 13\}$而不是8bit
+- Dictionary Encoding：$ABCABCZXZXZX\rightarrow (\{0:ABC,1:ZX\}, \{0,0,1,1,1\})$
+- Fast Static Symbol Table (FSST)
+  - 用于压缩字符串
+  - 寻找“最佳”符号表，将出现频率最高的子串(不超过8B长)替换为1B的代码
+  - 快速压缩(SIMD并行加速)
+  - 压缩后的文件可以随机读
+  - 寻找符号表：一种自底向上生成符号表的启发式算法
+    - 每轮迭代：
         1. 使用当前符号表计算压缩因数，同时计算出每个符号出现次数以及哪些符号是连续出现的
         2. 选择(出现次数\*长度)最大的那些符号，以及连续出现的符号组成的新符号作为新符号表
-      - 尽量使用长的出现频率高的符号
-  - Roaring Bitmaps for NULLs and Exceptions
-    - 在不同数据库中使用广泛
-    - 每$2^{16}$数据为一个数据块，值$k$储存在第$\frac{k}{2^{16}}$块
-    - 数据量小于4096的数据块使用数组储存数据
-    - 数据量大于4096的数据块使用bitmap储存数据
-  - Pseudodecimals：压缩小数$double(3.25)\rarr (int(+325), int(2))$
+    - 尽量使用长的出现频率高的符号
+- Roaring Bitmaps for NULLs and Exceptions
+  - 在不同数据库中使用广泛
+  - 每$2^{16}$数据为一个数据块，值$k$储存在第$\frac{k}{2^{16}}$块
+  - 数据量小于4096的数据块使用数组储存数据
+  - 数据量大于4096的数据块使用bitmap储存数据
+- Pseudodecimals：压缩小数$double(3.25)\rightarrow (int(+325), int(2))$
 
 ### 评论
 
@@ -65,10 +68,10 @@ category: "CMU15-721"
 
 - 背景
   - 例如整数大小的比较等操作并不一定需要全部32bit乃至64bit的数据
-  - 可以将int64看作bit[64](Bit-sliced encoding)
-    - 该方案可以加速某些聚集函数：例如使用POPCNT加速加法$\sum_{i=0}^{n} int(x_i) = \sum_{j=0}^{32}(\sum_{i=0}^{n} x_i >> j) << j = \sum_{j=0}^{32} POPCNT_j(x)<<j$
+  - 可以将int64看作bit\[64\](Bit-sliced encoding)
+    - 该方案可以加速某些聚集函数：例如使用POPCNT(速度极快)加速加法$\sum_{i=0}^{n} int(x_i) = \sum_{j=0}^{32}(\sum_{i=0}^{n} x_i >> j) << j = \sum_{j=0}^{32} POPCNT_j(x)<<j$
 - 支持使用SIMD对压缩数据进行高效的谓词评估
-  - 支持有序字典编码($encode(s_1)<encode(s_2) \lrArr s_1<s_2$)
+  - 支持有序字典编码($encode(s_1)<encode(s_2) \Leftrightarrow s_1<s_2$)
   - bit级并行化
   - 只需要通用指令(不依赖SIMD硬件级别的实现)
 - 实现方式：
@@ -83,3 +86,4 @@ category: "CMU15-721"
     - bit级别的列存
     - SIMD优化的Bit-sliced
     - 比较时从高位向低位迭代，若结果全为非(使用POPCNT)，则可以结束比较并跳过
+- 该技术在Wisconsin’s QuickStep中使用，2016年捐献给apache，2018年之后很少有人用了
