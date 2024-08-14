@@ -1,11 +1,12 @@
 ---
-title: 泛读笔记：The Case for Distributed Shared-Memory Databases with RDMA-Enabled Memory Disaggregation
+title: 泛读笔记：《The Case for Distributed Shared-Memory Databases with RDMA-Enabled Memory Disaggregation》
 date: 2024-08-13 13:12:27
 tags: 
     - Reading Note
     - DataBase
     - Hardware
     - RDMA
+    - 'B+Tree'
 category: "泛读笔记"
 ---
 [Paper](https://www.vldb.org/pvldb/vol16/p15-wang.pdf)
