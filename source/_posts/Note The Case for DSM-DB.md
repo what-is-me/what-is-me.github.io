@@ -6,7 +6,6 @@ tags:
     - DataBase
     - Hardware
     - RDMA
-    - 'B+Tree'
 category: "泛读笔记"
 ---
 [Paper](https://www.vldb.org/pvldb/vol16/p15-wang.pdf)
