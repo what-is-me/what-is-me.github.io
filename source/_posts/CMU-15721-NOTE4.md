@@ -6,6 +6,7 @@ tags:
     - CMU15-721
     - Learning Note
 category: "CMU15-721"
+mathjax: true
 ---
 ## 操作节点(operator)执行
 

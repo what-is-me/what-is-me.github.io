@@ -7,6 +7,7 @@ tags:
     - Hardware
     - RDMA
 category: "泛读笔记"
+mathjax: true
 ---
 [Paper](https://www.vldb.org/pvldb/vol16/p15-wang.pdf)
 

@@ -6,6 +6,7 @@ tags:
     - CMU15-721
     - Learning Note
 category: "CMU15-721"
+mathjax: true
 ---
 许多现存的格式没有针对需要远程访问的Datalake、现代高吞吐网络以及数据并行化的CPU进行优化。
 

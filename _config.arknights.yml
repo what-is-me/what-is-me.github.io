@@ -148,3 +148,11 @@ stylesheets:
 
 # 在 `<body>` 尾部引入 JavaScript 脚本
 scripts:
+
+pandoc:
+  args:
+    - "-f"
+    - "markdown"
+    - "-t"
+    - "html"
+    - "--mathjax"
