@@ -9,7 +9,7 @@ tags:
     - RDMA
 category: "泛读笔记"
 ---
-[[原文]](https://www.informatik.tu-darmstadt.de/media/systems/pdf_publications/RDMATreeIndexes.pdf)
+[Paper](https://www.informatik.tu-darmstadt.de/media/systems/pdf_publications/RDMATreeIndexes.pdf)
 
 ## 摘要
 

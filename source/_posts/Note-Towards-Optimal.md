@@ -8,7 +8,7 @@ tags:
 category: "泛读笔记"
 mathjax: true
 ---
-[paper](https://www.vldb.org/pvldb/vol17/p2694-cheng.pdf)
+[Paper](https://www.vldb.org/pvldb/vol17/p2694-cheng.pdf)
 
 ## 摘要
 
