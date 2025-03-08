@@ -12,9 +12,9 @@ mathjax: true
 
 ## 摘要
 
-> Maximizing transaction throughput is key to high-performance database systems, which focus on minimizing data access conflicts to improve performance. However, finding efficient schedules that reduce conflicts remains an open problem. For efficiency, previous scheduling techniques consider only a small subset of possible schedules. In this work, we propose systematically exploring the entire schedule space, proactively identifying efficient schedules, and executing them precisely during execution to improve throughput. We introduce a greedy scheduling policy, SMF, that efficiently finds fast schedules and outperforms state-of-the-art search techniques. To realize the benefits of these schedules in practice, we develop a schedule-first concurrency control protocol, MVSchedO, that enforces fine-grained operation orders. We implement both in our system R-SMF, a modified version of RocksDB, to achieve up to a 3.9× increase in throughput and 3.2× reduction in tail latency on a range of benchmarks and real-world workloads.
-
 最大化事务吞吐量是高性能数据库系统的关键，高性能数据库系统关注于最小化数据访问冲突以提高性能。然而，找到有效的时间表，减少冲突仍然是一个悬而未决的问题。为了提高效率，以前的调度技术只考虑可能的时间表的一个小子集。在这项工作中，我们建议系统地探索整个时间表空间，主动识别有效的时间表，并在执行过程中精确地执行它们，以提高吞吐量。我们引入了一个贪婪的调度策略，SMF，有效地找到快速的时间表，并优于最先进的搜索技术。为了实现这些时间表在实践中的好处，我们开发了一个时间表优先的并发控制协议，MVSchedO，执行细粒度的操作顺序。我们在我们的系统R-SMF（RocksDB的修改版本）中实现了这两个功能，在一系列基准测试和实际工作负载上实现了高达3.9倍的吞吐量增加和3.2倍的尾延迟减少。
+
+<!-- more-->
 
 ## 背景
 

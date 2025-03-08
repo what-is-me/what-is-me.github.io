@@ -14,9 +14,9 @@ mathjax: true
 
 ## 摘要
 
-> The emerging trend of memory disaggregation where CPU and memory are physically separated from each other and are connected via ultra-fast networking, e.g., over RDMA, allows elastic and independent scaling of compute (CPU) and main memory. This paper investigates how indexing can be efficiently designed in the memory disaggregated architecture. Although existing research has optimized the B-tree for this new architecture, its performance is moderate. This paper focuses on LSM-based indexing and proposes dLSM, the first highly optimized LSM-tree for disaggregated memory. dLSM introduces a suite of optimizations including reducing software overhead, leveraging near-data computing, tuning for byte-addressability, and an instantiation over RDMA as a case study with RDMAspecific customizations to improve system performance. Experiments illustrate that dLSM achieves 1.6× to 11.7× higher write throughput than running the optimized B-tree and four adaptations of existing LSM-tree indexes over disaggregated memory. dLSM is written in C++ (with approximately 41,000 LOC), and is open-sourced.
-
 新兴趋势内存分离（memory disaggregation）将CPU和内存物理上分开，并通过超快的网络（如 RDMA）连接。这使得计算（CPU）和主内存可以弹性地独立扩展。本文研究了如何在内存分离架构中高效设计索引。虽然现有的研究已对B树进行了优化，但其性能仍然一般。本文重点关注基于LSM树的索引，并提出了dLSM，这是首个针对分离内存高度优化的LSM树。dLSM引入了一系列优化措施，包括减少软件开销、利用近数据计算、针对字节寻址进行调优，以及以RDMA为例进行的定制化实现，以提升系统性能。实验结果表明，dLSM的写入吞吐量是优化后的B树和四种现有LSM树索引在分离内存上的适配的1.6到11.7倍。dLSM使用C++编写（约41,000行代码），并且是开源的。
+
+<!-- more-->
 
 ## 介绍
 
