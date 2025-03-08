@@ -164,3 +164,12 @@ Umbra(本文使用的codebase，该组以往的工作)实现了针对事务工�
 针对AP负载，可以选择SMA（为每一小块记录最大值最小值等聚合结果）或者缓存来过滤数据。
 
 ## 查询处理
+
+- 使用乐观锁优化点查
+- 对于扫描查询，使用下图步骤：
+  1. b+树索引收集需要扫描的数据块并放入环形队列，如果是数据页则传给Task4并行处理
+  2. 并行从队列中取出数据块读取任务，如果数据块不在缓存中，则使用Task3异步IO读取，在缓存中则直接交给Task4
+  3. 异步IO读取数据块
+  4. 并行处理数据块
+
+![Figure 5: Bandwidth-optimized table scan. The scan is split into four tasks to asynchronously retrieve compressed blocks from local or remote storage devices. We use io_uring for asynchronous I/O as proposed by.](f5.png)
