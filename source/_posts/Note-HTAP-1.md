@@ -34,7 +34,7 @@ category: "泛读笔记"
 - SSD带宽高，延迟低
 - 云对象存储带宽高，中等延迟，不受限制的容量，高耐用性，高可用，便宜
 
-### 现存云HTAP技术
+<!-- ### 现存云HTAP技术
 
 ![TIDB & ByteDance & SingleStore](fig_ppt1.png)
 
@@ -44,14 +44,20 @@ category: "泛读笔记"
   - 数据被复制了多遍，日志是瓶颈
 - SingleStore
   - 避免了数据重复，冷热数据分离，热数据放在内存，冷数据放在对象存储/SSD中
-  - 使用LSM树，点查较慢，并且缺少page server，很难融合至page-based数据库中
+  - 使用LSM树，点查较慢，并且缺少page server，很难融合至page-based数据库中 -->
 
-## 构建云上HTAP的需求
+<!-- ## 构建云上HTAP的需求
 
 1. 在避免重复储存数据的情况下，设计对于AP和TP负载都有优势的数据格式
-2. 利用好存储技术（SSD，对象存储）
-3. 日志瓶颈
-4. 融合共享存储的设计（log server / page server）
+2. 利用好存储技术（SSD，对象存储（高带宽，中等时延，近乎无线的容量））
+3. 日志瓶颈（每次写日志的高时延）
+4. 融合共享存储的设计（log server / page server） -->
+
+## 本文贡献
+
+1. 行列混合的存储
+2. 冷热数据分离
+3. 利用了现代存储设备（SSD和Object store）的高带宽
 
 ## 本文的设计总览
 
@@ -173,5 +179,7 @@ Umbra(本文使用的codebase，该组以往的工作)实现了针对事务工�
   2. 并行从队列中取出数据块读取任务，如果数据块不在缓存中，则使用Task3异步IO读取，在缓存中则直接交给Task4
   3. 异步IO读取数据块
   4. 并行处理数据块
+
+带宽优化的表扫描：
 
 ![Figure 5: Bandwidth-optimized table scan. The scan is split into four tasks to asynchronously retrieve compressed blocks from local or remote storage devices. We use io_uring for asynchronous I/O as proposed by.](f5.png)
