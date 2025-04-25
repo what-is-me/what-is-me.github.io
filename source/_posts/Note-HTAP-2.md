@@ -1,7 +1,7 @@
 ---
 mathjax: true
 title: '泛读笔记：《Rethink Query Optimization in HTAP Databases》'
-date: 2025-04-23 23:18:05
+date: 2025-04-25 23:19:44
 tags:
     - Reading Note
     - DataBase
@@ -114,3 +114,59 @@ OLTP并发度增加造成的影响：
     - $b$：delta store中B+树的fanout（B+ 树中每个内部节点可以拥有的最大子节点数量）
     - $w_{k}$：索引中key的宽度
     - $N_{d}$：delta表大小
+
+网络代价
+$$
+Cost_{net} = \frac{ sel \cdot N \cdot w_{res} }{ B_{net} } + L_{net}
+$$
+行扫描（上标$seq$表示顺序读带宽，$rand$表示随机读带宽）
+$$
+Cost_{row} = T \cdot N \cdot \max \{ \frac{ts}{ DB_{row}^{seq} }, \frac{ts}{ MB_{row}^{seq} }, f_{p} \cdot p \} \approx \frac{ T \cdot N \cdot ts }{ DB_{row}^{seq} }
+$$
+索引扫描
+$$
+Cost_{index} = Cost_{IndexTraversal} + Cost_{DataTraversal} \\ \approx \frac{ T \cdot N \cdot ( w_{k} + w_{id} ) }{ DB_{row}^{seq} } + \frac{ T \cdot N \cdot ( w_{id} + sel \cdot ts ) }{ DB_{row}^{rand} }
+$$
+列扫描
+$$
+Cost_{col}^{*} = N \cdot \max \{ \frac{w_a}{ DB_{col}^{seq} }, \frac{w_a}{ MB_{col}^{seq} }, \frac{ f_{p} \cdot p }{ f_{vec} } \} \approx \frac{ N \cdot w_a }{ DB_{col}^{seq} }
+$$
+Delta表扫描
+$$
+Cost_{delta} = Cost_{TreeTraversal} + Cost_{DataTraversal} \\
+Cost_{TreeTraversal} = (1+\lceil \log _b(N_d)\rceil)\cdot \frac{b}{2} \cdot (f_p\cdot p+\frac{1}{MB_{col}^{rand} }) \\
+Cost_{DataTraversal} = N_d\cdot \frac{w_{id}+sel\cdot ts}{DB_{col}^{rand}}
+$$
+HTAP中的列存扫描
+$$
+Cost_{col} = Cost_{col}^{*} + Cost_{delta}
+$$
+当$sel$值特别大，且增量存储的性能损耗$N_d$超过了I/O成本下降带来的收益（即将$T\cdot ts$降低为$w_a$）时，更倾向于选择行扫描。当$sel$值特别小时，更倾向于使用索引扫描。在其他情况下，会选择列扫描。
+
+## 运行时优化
+
+- 物理计划表示成DAG
+- 如果两个操作存在依赖，其中一个必须等待另一个完全完成才能开始，则称其为硬依赖
+- 如果两个操作存在依赖，但是可以用流水线方式执行，则称为软依赖
+
+### 可见性感知的计划选择
+
+![Algorithm1](image-4.png)
+
+- $preCost$为无需等待数据传输即可执行的操作的代价（图中绿色部分）
+- $\alpha$为根据历史数据估算的可见性延迟
+- $Cost = execCost + \alpha - \min (\alpha , preCost)$
+
+![An example of visibility-aware plan selection](image-5.png)
+
+### 种子计划
+
+- 首先生成一个成本最低的混合计划
+- 在此混合计划的相同逻辑结构基础上，分别生成了一个优化的行存储计划和一个优化的列存储计划
+- 所有的种子计划具有相同的逻辑结构，但可能采用不同的物理操作符
+  - 例如：行扫描与列扫描、嵌套循环连接与哈希连接
+  - 因为影响逻辑计划最优性的基数估计（例如用于决定最优连接顺序）是完全相同的，并不分别为行存储计划和列存储计划单独优化逻辑结构
+- 当估计的基数与实际统计数据偏差较大（例如超过20%）时，会重新优化物理操作符；设定物理资源使用率的阈值（例如 80% CPU 利用率）来控制物理资源的使用；通过争用痕迹的阈值（即冲突事务的数量）来控制每张表上的逻辑争用
+- 由于种子计划具有相同的逻辑结构，拼接新计划本质上是在为尚未执行的部分重新选择物理操作符
+
+![Proactive plan re-optimization and sub-plan stitch.](image-6.png)
