@@ -116,31 +116,19 @@ OLTP并发度增加造成的影响：
     - $N_{d}$：delta表大小
 
 网络代价
-$$
-Cost_{net} = \frac{ sel \cdot N \cdot w_{res} }{ B_{net} } + L_{net}
-$$
+$$Cost_{net} = \frac{sel \cdot N \cdot w_{res}}{B_{net}} + L_{net}$$
 行扫描（上标$seq$表示顺序读带宽，$rand$表示随机读带宽）
-$$
-Cost_{row} = T \cdot N \cdot \max \{ \frac{ts}{ DB_{row}^{seq} }, \frac{ts}{ MB_{row}^{seq} }, f_{p} \cdot p \} \approx \frac{ T \cdot N \cdot ts }{ DB_{row}^{seq} }
-$$
+$$Cost_{row} = T \cdot N \cdot \max \{\frac{ts}{DB_{row}^{seq}}, \frac{ts}{MB_{row}^{seq}}, f_{p} \cdot p \} \approx \frac{T \cdot N \cdot ts}{DB_{row}^{seq}}$$
 索引扫描
-$$
-Cost_{index} = Cost_{IndexTraversal} + Cost_{DataTraversal} \\ \approx \frac{ T \cdot N \cdot ( w_{k} + w_{id} ) }{ DB_{row}^{seq} } + \frac{ T \cdot N \cdot ( w_{id} + sel \cdot ts ) }{ DB_{row}^{rand} }
-$$
+$$Cost_{index} = Cost_{IndexTraversal} + Cost_{DataTraversal} \\ \approx \frac{T \cdot N \cdot ( w_{k} + w_{id} )}{DB_{row}^{seq}} + \frac{T \cdot N \cdot ( w_{id} + sel \cdot ts )}{DB_{row}^{rand}}$$
 列扫描
-$$
-Cost_{col}^{*} = N \cdot \max \{ \frac{w_a}{ DB_{col}^{seq} }, \frac{w_a}{ MB_{col}^{seq} }, \frac{ f_{p} \cdot p }{ f_{vec} } \} \approx \frac{ N \cdot w_a }{ DB_{col}^{seq} }
-$$
+$$Cost_{col}^{*} = N \cdot \max \{\frac{w_a}{DB_{col}^{seq}}, \frac{w_a}{MB_{col}^{seq}}, \frac{f_{p} \cdot p}{f_{vec}} \} \approx \frac{N \cdot w_a}{DB_{col}^{seq}}$$
 Delta表扫描
-$$
-Cost_{delta} = Cost_{TreeTraversal} + Cost_{DataTraversal} \\
-Cost_{TreeTraversal} = (1+\lceil \log _b(N_d)\rceil)\cdot \frac{b}{2} \cdot (f_p\cdot p+\frac{1}{MB_{col}^{rand} }) \\
-Cost_{DataTraversal} = N_d\cdot \frac{w_{id}+sel\cdot ts}{DB_{col}^{rand}}
-$$
+$$Cost_{delta} = Cost_{TreeTraversal} + Cost_{DataTraversal} \\
+Cost_{TreeTraversal} = (1+\lceil \log _b(N_d)\rceil)\cdot \frac{b}{2} \cdot (f_p\cdot p+\frac{1}{MB_{col}^{rand}}) \\
+Cost_{DataTraversal} = N_d\cdot \frac{w_{id}+sel\cdot ts}{DB_{col}^{rand}}$$
 HTAP中的列存扫描
-$$
-Cost_{col} = Cost_{col}^{*} + Cost_{delta}
-$$
+$$Cost_{col} = Cost_{col}^{*} + Cost_{delta}$$
 当$sel$值特别大，且增量存储的性能损耗$N_d$超过了I/O成本下降带来的收益（即将$T\cdot ts$降低为$w_a$）时，更倾向于选择行扫描。当$sel$值特别小时，更倾向于使用索引扫描。在其他情况下，会选择列扫描。
 
 ## 运行时优化
