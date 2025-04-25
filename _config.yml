@@ -109,4 +109,4 @@ pandoc:
     - "markdown"
     - "-t"
     - "html"
-    - "--mathjax"
+    - "--mathml"
