@@ -1,6 +1,6 @@
 ---
 mathjax: true
-title: 泛读笔记：《{{ title }}》
+title: '泛读笔记：《{{ title }}》'
 date: {{ date }}
 tags: 
     - Reading Note
