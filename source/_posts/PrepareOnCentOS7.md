@@ -19,13 +19,24 @@ curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh > Min
 bash Miniconda.sh -p ~/conda
 ```
 
+并且配置环境变量：
+
+```bash
+export CONDA_PREFIX=$HOME/conda
+export CPATH=$CONDA_PREFIX/include:$CPATH
+export LIBRARY_PATH=$CONDA_PREFIX/lib:$LIBRARY_PATH
+export LD_LIBRARY_PATH=$CONDA_PREFIX/lib:$LD_LIBRARY_PATH
+export C_INCLUDE_PATH=$CONDA_PREFIX/include:$C_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=$CONDA_PREFIX/include:$CPLUS_INCLUDE_PATH
+```
+
 之后就可以用conda的包管理器了，比如安装gcc，clang等，比如：
 
 ```bash
 conda install -c conda-forge gcc=13.2.0
 ```
 
-注意要在更新gcc/clang设置环境变量：
+注意要在更新gcc/clang后，由于`libstdc++`也被更新，可能需要在`# >>> conda initialize >>>`前额外设置环境变量：
 
 ```bash
 export LD_PRELOAD=~/conda/lib/libstdc++.so.6
