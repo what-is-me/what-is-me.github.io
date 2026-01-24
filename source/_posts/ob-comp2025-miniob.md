@@ -22,8 +22,6 @@ typora-root-url: ob-comp2025-miniob
 
 比赛主页和榜单：<https://open.oceanbase.com/competition/2025>
 
-<!--more-->
-
 ## 从 2024 到 2025：MiniOB 的演进与挑战
 
 相比 2024 年，2025 年的赛题在原有基础上新增了若干题目，同时也对部分旧题补充了新的测试用例。这导致不少在 2024 年训练营中可以通过的实现，在 2025 年环境下已无法通过。
@@ -136,8 +134,6 @@ explicit Value(Val &&val) : value_(std::forward<Val>(val))
 
 1. `AttrType`不需要额外开一个成员变量存储，直接`AttrType attr_type() const { return AttrType(value_.index()); }`即可。
 
-这样来看的话，`std::variant`可以看作是一个封装好的`Value`，但需要手动修改一些接口。
-
 此外，原本`Value`只支持字符串，后续需要支持向量类型，那么其中的`length()`就带来了歧义。它的含义类似`sizeof`，而不是`std::string`/`std::vector<T>`中的`size()`，可以考虑将其换成`bytes()`来明确含义。
 
 当然，今年参加CCF数据库暑期学校的同学也可以考虑用`std::variant`去重构一下`Column`类，去年我和同学参加的时候，遇到了不少手动管理内存导致的BUG。
@@ -200,12 +196,6 @@ inline std::strong_ordering operator<=>(const Value &left, const Value &right)
 类似情况还出现在 `INSERT` 和 `UPDATE` 的值处理上，当前的 `value` 对象也可以被抽象为 `Expression`，从而统一解析和计算逻辑。这对于复杂表达式（例如嵌套函数、子查询、算术运算等）来说，后续的扩展十分困难。因此，应该尽早将此处重构，后续扩展功能反而会变得简单。
 
 ### Subquery
-
-可以把你的描述整理成技术文档风格、逻辑清晰的版本，同时强调接口设计的重要性：
-
----
-
-### 子查询设计与接口考虑
 
 子查询通常是 SQL 执行中最复杂的部分之一，涉及内外层查询的联动、作用域管理以及表达式求值顺序。
 
