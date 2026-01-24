@@ -15,6 +15,20 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           submodules: recursive
+      - name: Clone Yue-plus/hexo-theme-arknights PUBLIC repository
+        uses: GuillaumeFalourd/clone-github-repo-action@v2.3
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'Yue-plus'
+          repository: 'hexo-theme-arknights'
+      - name: Prepare theme
+        run: |
+          mkdir themes
+          mv hexo-theme-arknights themes
+          mv themes/hexo-theme-arknights themes/arknights
+          rm -rf themes/arknights/_config.yml
+          ls -la themes/arknights
       - name: Use Node.js 21
         uses: actions/setup-node@v4
         with:
