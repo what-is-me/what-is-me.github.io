@@ -262,10 +262,10 @@ inline std::strong_ordering operator<=>(const Value &left, const Value &right)
 
 在MiniOB中，SQL的处理分为：
 
-- parse (String $\rarr$ SQL Node)
-- resolve (SQL Node $\rarr$ Stmt)
-- generate logical operator (Stmt $\rarr$ Logical Operator)
-- generate physical operator (Logical Operator $\rarr$ Physical Operator)
+- parse (String → SQL Node)
+- resolve (SQL Node → Stmt)
+- generate logical operator (Stmt → Logical Operator)
+- generate physical operator (Logical Operator → Physical Operator)
 - execute
 
 各阶段的处理可以做一下封装。它在子查询相关的所有功能实现中都有可能复用(后续的Alias和View那些)。
