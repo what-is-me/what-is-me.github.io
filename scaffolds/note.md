@@ -1,4 +1,5 @@
 ---
+typora-root-url: {{ title }}
 mathjax: true
 title: '泛读笔记：《{{ title }}》'
 date: {{ date }}
