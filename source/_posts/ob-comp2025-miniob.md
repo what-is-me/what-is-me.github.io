@@ -3,9 +3,8 @@ mathjax: true
 title: OceanBase 2025 初赛 MiniOB 开发记录
 date: 2026-01-24 16:01:52
 tags:
-
-- MiniOB
-- Oceanbase数据库大赛
+  - MiniOB
+  - Oceanbase数据库大赛
 category: 'Oceanbase数据库大赛'
 typora-root-url: ob-comp2025-miniob
 ---
@@ -24,7 +23,7 @@ typora-root-url: ob-comp2025-miniob
 
 比赛主页和榜单：<https://open.oceanbase.com/competition/2025>
 
-## 从 2024 到 2025：MiniOB 的演进与挑战
+## MiniOB 的演进与挑战
 
 相比 2024 年，2025 年的赛题在原有基础上新增了若干题目，同时也对部分旧题补充了新的测试用例。这导致不少在 2024 年训练营中可以通过的实现，在 2025 年环境下已无法通过。
 从整体来看，MiniOB 的代码基础相当扎实，各个模块划分清晰，但代码体量并不算大，这反而为参赛者在架构设计与性能取舍上提供了较大的自由空间。
@@ -145,7 +144,7 @@ Value &operator=(const Value &other) = default;
 Value &operator=(Value &&other)      = default;
 ```
 
-1. `get_类型`和`set_类型`也都能得到简化：
+2. `get_类型`和`set_类型`也都能得到简化：
 
 ```cpp
 int                  get_int() const { return std::get<int>(value_); }
@@ -164,7 +163,7 @@ void set_boolean(bool val) { value_ = val; }
 void set_undefined() { value_ = UndefinedType{}; }
 ```
 
-1. 基础类型转`Value`可以直接套用模板，而不需要一个一个去写：
+3. 基础类型转`Value`可以直接套用模板，而不需要一个一个去写：
 
 ```cpp
 template <typename Val>
@@ -173,7 +172,7 @@ explicit Value(Val &&val) : value_(std::forward<Val>(val))
 {}
 ```
 
-1. `AttrType`不需要额外开一个成员变量存储，直接`AttrType attr_type() const { return AttrType(value_.index()); }`即可。
+4. `AttrType`不需要额外开一个成员变量存储，直接`AttrType attr_type() const { return AttrType(value_.index()); }`即可。
 
 此外，原本`Value`只支持字符串，后续需要支持向量类型，那么其中的`length()`就带来了歧义。它的含义类似`sizeof`，而不是`std::string`/`std::vector<T>`中的`size()`，可以考虑将其换成`bytes()`来明确含义。
 
@@ -271,7 +270,7 @@ inline std::strong_ordering operator<=>(const Value &left, const Value &right)
 
 各阶段的处理可以做一下封装。它在子查询相关的所有功能实现中都有可能复用(后续的Alias和View那些)。
 
-#### 内外层联动如何传参（`thread_local`的妙用）
+#### 内外层联动如何传参
 
 在子查询的执行逻辑中，我们面临一个典型的接口不匹配难题：`get_value()` 或 `try_get_value()` 在调用时，无法直接向下透传 `PhysicalOperator::open()` 所必需的 `Trx *trx` 指针；与此同时，`PhysicalOperator` 在实际执行过程中，也无法接收由 `get_value()` 传入的 `Tuple *tuple` 作为入参。
 
@@ -283,7 +282,7 @@ inline std::strong_ordering operator<=>(const Value &left, const Value &right)
 
 然而，数据库是一个高度并发的多线程系统，传统的全局变量会引发严重的线程安全问题。
 
-##### Thread-per-Connection 模型与 thread_local
+##### Thread-per-Connection
 
 幸运的是，大多数 OLTP 数据库系统遵循 **Thread-per-Connection**（或 **One-Thread-per-Connection**）模型。在该模型下，单个线程在执行周期内通常绑定一个特定的事务，事务与线程具有明确的一一对应关系。
 
@@ -300,7 +299,6 @@ struct TupleContextGuard {
   TupleContextGuard(const Tuple *tuple) { ThreadLocalContext::current().push_tuple(tuple); }
   ~TupleContextGuard() { ThreadLocalContext::current().pop_tuple(); }
 };
-
 ```
 
 ##### thread_local 的更多延伸应用
@@ -385,7 +383,6 @@ Table(const string &name, Table &table)
     : db_(table.db_), table_meta_(name, table.table_meta_), engine_(table.engine_) {}
 
 [[nodiscard]] bool is_view() const { return table_id() < 0; }
-
 ```
 
 #### `ThreadLocalContext`：虚拟表的“临时集散地”
@@ -412,7 +409,6 @@ void ThreadLocalContext::clear() {
   // 释放关联的逻辑算子树
   views_.clear();
 }
-
 ```
 
 通过这种方式，我们利用 `thread_local` 在不破坏原有存储引擎接口的前提下，灵活地支持了 Alias、子查询和视图，实现了代码的高度复用。
@@ -512,10 +508,8 @@ private:
 
 1. **非空约束参与**：根据 SQL 标准，多个 `NULL` 值通常不被视为重复。因此，校验逻辑首先要确认 Key 序列中是否存在空值。
 2. **多版本下的可见性**：
-
-- 在普通的 **VacuousTrx**模型下，只需调用索引引擎的 `exists` 接口判断物理存在即可。
-
-- 但在 **MVCC 模式**下，物理存在的 Key 对应的记录可能已经被标记删除，或者是由尚未提交的事务所创建，需要仔细的判断。
+   - 在普通的 **VacuousTrx**模型下，只需调用索引引擎的 `exists` 接口判断物理存在即可。
+   - 但在 **MVCC 模式**下，物理存在的 Key 对应的记录可能已经被标记删除，或者是由尚未提交的事务所创建，需要仔细的判断。
 
 #### 多行 `UPDATE` 的错误处理
 
@@ -539,16 +533,15 @@ private:
 假设表 `t1` 只有一列 `id (int, not null)`，包含两行数据：`1` 和 `2`。执行 `UPDATE t1 SET id = 3 - id`。
 
 - **如果逐行更新**：处理第一行 `1 -> 2` 时，会因为唯一索引中已存在 `2` 而报错。
-- **标准姿势**：
-
-1. 扫描发现：`RID1(1)` 准备变为 `2`，`RID2(2)` 准备变为 `1`。
-2. 删除 `RID1` 和 `RID2`。
-3. 插入 `2` 和 `1`。
+- **标准做法**：
+  1. 扫描发现：`RID1(1)` 准备变为 `2`，`RID2(2)` 准备变为 `1`。
+  2. 删除 `RID1` 和 `RID2`。
+  3. 插入 `2` 和 `1`。
 整个过程顺利完成。
 
 **注意** 2025年新增了一个测例：
 
-![image-20260126142820551](image-20260126142820551.png)
+![update-mvcc](image-20260126142820551.png)
 
 ~~但是因为mvcc-update是唯一一题数据不随机的题目，所以真可以打表过（笑）。~~
 
@@ -566,7 +559,7 @@ private:
 
 这种方案的优势在于不需要修改建表逻辑和底层的元数据存储结构，只需在 `Record` 的 `serialize` 和 `deserialize` 环节增加一层路由逻辑。
 
-虽然理想的做法是在建表（`CREATE TABLE`）阶段就精细化定义每个字段的存储属性（Storage Class），但这涉及到 SQL 解析器、逻辑计划以及物理引擎的深度修改。对于现阶段的开发，采用基于长度阈值的外部存储 + 引用占位方案是投入产出比最高的选择。
+虽然理想的做法是在建表（`CREATE TABLE`）阶段就精细化定义每个字段的存储属性，但这涉及到 SQL 解析器、逻辑计划以及物理引擎的深度修改。对于现阶段的开发，采用基于长度阈值的外部存储 + 引用占位方案是投入产出比最高的选择。
 
 ### Functions
 
@@ -689,7 +682,7 @@ if (table->is_view()) {
 
 换句话说，`UNION ALL` 可以看作是一个简单的“数据流汇聚器”，它并不关心子节点是普通的 `SELECT` 还是一个复杂的 `UNION` 子树。在逻辑计划生成阶段，我们会尽可能合并同类型的操作符，形成一个宽泛的 Append 算子，直到遇到语义不同的边界（如从 `ALL` 切换到非 `ALL`）。这种从“递归二叉树”到“局部扁平多叉树”的转变，不仅简化了执行逻辑，也极大地提升了结果集处理的吞吐量。
 
-### [外部排序](https://zh.wikipedia.org/wiki/%E5%A4%96%E6%8E%92%E5%BA%8F)
+### 外部排序
 
 在数据库执行查询时，ORDER BY 是极其耗费资源的算子。当待排序的数据量较小，能够完整装入内存时，可以简单地使用 `std::sort` 等内存排序算法。然而，当数据集规模超出内存预算（如面对 2025 年测试用例中的大数据量场景）时，外部排序（External Merge Sort） 就成了维持系统稳定的唯一出路。
 
@@ -700,6 +693,8 @@ if (table->is_view()) {
 在第二阶段，系统利用**优先队列（堆）**来实现多路归并。通过创建一个合并迭代器，将所有磁盘上的临时文件和最后剩余的内存缓冲区作为子节点挂载到堆中。归并开始时，每个子节点会贡献出自己“最小”的一行推入堆顶。随后，每当上层调用 next() 获取结果，算子就从堆顶弹出一个全局最小（或最大）的行，并立即从产生该记录的子节点中补入下一行数据。
 
 配合 LobFileHandler 的文件管理与 `TupleEncoder` 的序列化机制，这种“内存缓存 + 磁盘落盘 + 多路归并”的组合确保了磁盘 I/O 的高效与数据的类型安全。这套机制使内核能够从容应对各种复杂的大规模排序挑战，在有限的资源约束下实现确定性的执行效率。
+
+[外部排序wikipedia](https://zh.wikipedia.org/wiki/%E5%A4%96%E6%8E%92%E5%BA%8F)
 
 ### 向量索引和全文索引
 
@@ -747,7 +742,7 @@ volumes:
   langflow_data:
 ```
 
-2025年的复赛赛题倒是和全文索引以及RAG相关，只不过初赛的RAG和全文索引没啥关系，也不知道有多少队伍给带偏了。
+2025年的复赛赛题倒是和全文索引以及RAG相关，只不过初赛的RAG和全文索引没啥关系，也不知道有多少队伍给带偏了（~~也说不定用全文索引有奇效~~）。
 
 ## 复赛浅谈
 
